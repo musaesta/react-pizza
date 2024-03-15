@@ -1,3 +1,4 @@
+import React from 'react';
 import Header from './components/header/Header';
 import Categories from './components/categories/Categories';
 import Sort from './components/sort/Sort';
