@@ -9,7 +9,6 @@ function Sort() {
 	const sortTab = item => {
 		setOpen(false);
 		setActiveTab(item);
-		s;
 	};
 
 	return (
