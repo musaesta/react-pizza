@@ -11,7 +11,7 @@ function App() {
 			<Header />
 			<div className='content'>
 				<div className='container'>
-					{/* <Home /> */}
+					<Home />
 					<NotFound />
 				</div>
 			</div>
