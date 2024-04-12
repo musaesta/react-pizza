@@ -1,6 +1,6 @@
 import React from 'react';
-function Sort() {
-	const list = ['популярности', 'цене', 'алфавиту'];
+function Sort({ onSortRating }) {
+	const list = ['rating', 'price', 'title'];
 	const [open, setOpen] = React.useState(false);
 	const [activeTab, setActiveTab] = React.useState(list[0]);
 	const togglePopup = () => {
@@ -10,7 +10,9 @@ function Sort() {
 		setOpen(false);
 		setActiveTab(item);
 	};
-
+	React.useEffect(() => {
+		onSortRating(activeTab);
+	}, [activeTab]);
 	return (
 		<div className='sort'>
 			<div className='sort__label'>

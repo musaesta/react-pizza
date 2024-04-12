@@ -1,5 +1,5 @@
-import React from 'react';
-function Categories() {
+import React, { useEffect } from 'react';
+function Categories({ onSortCategory }) {
 	const [activeIndex, setActiveIndex] = React.useState(0);
 	const listItem = [
 		'Все',
@@ -9,7 +9,9 @@ function Categories() {
 		'Острые',
 		'Закрытые',
 	];
-
+	useEffect(() => {
+		onSortCategory(activeIndex);
+	}, [activeIndex]);
 	const onclickCategory = id => {
 		setActiveIndex(id);
 	};
