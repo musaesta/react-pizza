@@ -1,8 +1,12 @@
 import React from 'react';
 function Sort({ onSortRating }) {
-	const list = ['rating', 'price', 'title'];
+	const list = [
+		{ name: 'Популярности', sort: 'rating' },
+		{ name: 'Цене', sort: 'price' },
+		{ name: 'Алфавиту', sort: 'title' },
+	];
 	const [open, setOpen] = React.useState(false);
-	const [activeTab, setActiveTab] = React.useState(list[0]);
+	const [activeTab, setActiveTab] = React.useState(list[0].name);
 	const togglePopup = () => {
 		setOpen(setOpen => !setOpen);
 	};
@@ -11,7 +15,9 @@ function Sort({ onSortRating }) {
 		setActiveTab(item);
 	};
 	React.useEffect(() => {
-		onSortRating(activeTab);
+		const sort = list.find(item => item.name === activeTab);
+
+		onSortRating(sort.sort);
 	}, [activeTab]);
 	return (
 		<div className='sort'>
@@ -37,10 +43,10 @@ function Sort({ onSortRating }) {
 						{list.map(item => (
 							<li
 								key={item}
-								className={item === activeTab ? 'active' : ''}
-								onClick={() => sortTab(item)}
+								className={item.name === activeTab ? 'active' : ''}
+								onClick={() => sortTab(item.name)}
 							>
-								{item}
+								{item.name}
 							</li>
 						))}
 					</ul>

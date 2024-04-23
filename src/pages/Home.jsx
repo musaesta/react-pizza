@@ -30,7 +30,7 @@ const Home = () => {
 	};
 	React.useEffect(() => {
 		setIsloading(true);
-		getData(sortCategory);
+		getData();
 
 		window.scrollTo(0, 0);
 	}, [sortCategory, sortRating]);
