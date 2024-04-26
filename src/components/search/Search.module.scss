@@ -17,3 +17,13 @@
 	top: 7px;
 	left: 7px;
 }
+.close {
+	position: absolute;
+	top: 12px;
+	right: 8px;
+	opacity: 0.2;
+	cursor: pointer;
+	&:hover {
+		opacity: 0.8;
+	}
+}

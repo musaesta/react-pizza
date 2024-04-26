@@ -4,13 +4,15 @@ import Categories from '../components/categories';
 import Sort from '../components/sort';
 import PizzaBlock from '../components/pizzaBlock';
 import { Skeleton } from '../components/pizzaBlock/Skeleton';
-const Home = () => {
+import Pagination from '../components/pagination';
+const Home = ({ searchValue }) => {
 	const _apiBase = 'https://65f43072f54db27bc020bdf5.mockapi.io/items?';
 	const [items, setItems] = React.useState([]);
 	const [isLoading, setIsloading] = React.useState(true);
 	const [sortCategory, setSortCategory] = React.useState(0);
 	const [sortRating, setSortRating] = React.useState('rating');
-
+	const [currentPage, setCurrentPage] = React.useState(0);
+	const search = searchValue ? `&search=${searchValue}` : '';
 	const onSortCategory = i => {
 		setSortCategory(i);
 	};
@@ -19,9 +21,9 @@ const Home = () => {
 	};
 	const getData = async () => {
 		const res = await fetch(
-			`${_apiBase}${sortCategory === 0 ? '' : `category=${sortCategory}`}&${
-				sortRating !== 'title' ? 'sort' : 'order'
-			}By=${sortRating}&order=asc`
+			`${_apiBase}${search}page=${currentPage}&limit=4${
+				sortCategory === 0 ? '' : `category=${sortCategory}`
+			}&${sortRating !== 'title' ? 'sort' : 'order'}By=${sortRating}&order=asc`
 		).then(res => res.json());
 
 		setIsloading(false);
@@ -33,7 +35,7 @@ const Home = () => {
 		getData();
 
 		window.scrollTo(0, 0);
-	}, [sortCategory, sortRating]);
+	}, [sortCategory, sortRating, searchValue, currentPage]);
 	return (
 		<div className='container'>
 			<div className='content__top'>
@@ -47,18 +49,10 @@ const Home = () => {
 				) : items === 'Not found' ? (
 					<NotFound />
 				) : (
-					items.map(({ title, price, imageUrl, id, sizes, types }) => (
-						<PizzaBlock
-							key={id}
-							title={title}
-							price={price}
-							sizes={sizes}
-							types={types}
-							imageUrl={imageUrl}
-						/>
-					))
+					items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
 				)}
 			</div>
+			<Pagination onChangePage={number => setCurrentPage(number)} />
 		</div>
 	);
 };
