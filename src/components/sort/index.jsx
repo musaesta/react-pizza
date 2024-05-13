@@ -1,10 +1,14 @@
 import React from 'react';
-function Sort({ onSortRating }) {
-	const list = [
-		{ name: 'Популярности', sort: 'rating' },
-		{ name: 'Цене', sort: 'price' },
-		{ name: 'Алфавиту', sort: 'title' },
-	];
+
+import { setSortRating } from '../../redux/slices/FilterSlice';
+import { useDispatch } from 'react-redux';
+const list = [
+	{ name: 'Популярности', sort: 'rating' },
+	{ name: 'Цене', sort: 'price' },
+	{ name: 'Алфавиту', sort: 'title' },
+];
+function Sort() {
+	const dispatch = useDispatch();
 	const [open, setOpen] = React.useState(false);
 	const [activeTab, setActiveTab] = React.useState(list[0].name);
 	const togglePopup = () => {
@@ -16,8 +20,7 @@ function Sort({ onSortRating }) {
 	};
 	React.useEffect(() => {
 		const sort = list.find(item => item.name === activeTab);
-
-		onSortRating(sort.sort);
+		dispatch(setSortRating(sort.sort));
 	}, [activeTab]);
 	return (
 		<div className='sort'>
